@@ -1,0 +1,22 @@
+.form {
+  max-width: 400px;
+  margin: 30px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form input, .form select, .form button {
+  padding: 10px;
+}
+
+.stock {
+  max-width: 600px;
+  margin: auto;
+}
+
+.card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 15px;
+}

@@ -1,0 +1,39 @@
+.layout {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  background: #1f2937;
+  color: white;
+  padding: 20px;
+}
+
+.sidebar a {
+  display: block;
+  color: white;
+  margin: 10px 0;
+  text-decoration: none;
+}
+
+.topbar {
+  background: #f3f4f6;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.content {
+  flex: 1;
+}
+
+.page {
+  padding: 20px;
+}
+
+/* @media screen and (max-width: 600px) {
+  .sidebar {
+    display: none;
+  }  
+} */
