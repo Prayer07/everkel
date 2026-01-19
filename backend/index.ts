@@ -6,7 +6,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors({
-  origin: 'https://everkel.vercel.app/', // later you can lock it to your frontend URL
+  origin: '*', // later you can lock it to your frontend URL
 }))
 
 app.use(express.json());
