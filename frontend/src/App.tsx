@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 
 // auth
-import Login from './auth/Login'
+// import Login from './auth/Login'
 import Register from './auth/Register'
 
 // layout
