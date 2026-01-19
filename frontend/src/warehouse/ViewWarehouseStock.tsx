@@ -32,7 +32,9 @@ export default function ViewWarehouseStock() {
           {w.goods.length === 0 && <p>No goods</p>}
 
           {w.goods.map((g: any) => (
-            <p key={g.id}>{g.name || "Name"} ({g.quantity})</p>
+            <p key={g.id}>
+              {g.productName} — Qty: {g.quantity} — ₦{g.sellingPrice}
+            </p>
           ))}
         </div>
       ))}
