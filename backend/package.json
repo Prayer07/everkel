@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "start": "node dist/index.js",
-    "build": "tsc"
+    "build": "tsc",
+    "migrate:deploy": "prisma migrate deploy"
   },
   "keywords": [],
   "author": "",
