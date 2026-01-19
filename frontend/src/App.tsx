@@ -33,7 +33,7 @@ export default function App() {
   return (
     <Routes>
       {/* auth */}
-      <Route path='/' element={<Login />} />
+      {/* <Route path='/' element={<Login />} /> */}
       <Route path='/register' element={<Register />} />
 
       {/* protected / layout routes */}
