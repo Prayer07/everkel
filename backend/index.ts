@@ -15,4 +15,4 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-app.use('/api/warehouse', warehouseRoutes)
+app.use('/warehouse', warehouseRoutes)
