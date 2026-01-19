@@ -3,11 +3,22 @@ import { api } from "../lib/api"
 import "../styles/warehouse.css"
 import { Link } from "react-router-dom"
 
+interface Warehouse {
+  id: number;
+  name: string;
+  quantity: number;
+}
+
+interface MyResponse {
+  data: Warehouse[];
+}
+
+
 export default function ViewWarehouseStock() {
   const [data, setData] = useState<any[]>([])
 
   useEffect(() => {
-    api.get("/warehouse/stock").then(res => setData(res.data))
+    api.get("/warehouse/stock").then((res: MyResponse) => setData(res.data))
   }, [])
 
   return (

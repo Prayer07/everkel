@@ -3,6 +3,16 @@ import { api } from "../lib/api"
 import '../styles/warehouse.css'
 import { Link } from "react-router-dom"
 
+interface Warehouse {
+  id: number;
+  name: string;
+  quantity: number;
+}
+
+interface MyResponse {
+  data: Warehouse[];
+}
+
 export default function AddGoods() {
   const [warehouses, setWarehouses] = useState<any[]>([])
   const [productName, setProductName] = useState("")
@@ -12,7 +22,7 @@ export default function AddGoods() {
   const [warehouseId, setWarehouseId] = useState("")
 
   useEffect(() => {
-    api.get("/warehouse/stock").then(res => setWarehouses(res.data))
+    api.get("/warehouse/stock").then((res: MyResponse) => setWarehouses(res.data))
   }, [])
 
   const submit = async (e: React.FormEvent) => {
