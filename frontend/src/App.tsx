@@ -39,12 +39,12 @@ export default function App() {
       {/* protected / layout routes */}
       <Route element={<Layout />}>
         {/* dashboard */}
-        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/' element={<Dashboard />} />
 
         {/* warehouse */}
         <Route path='/warehouse/add' element={<AddWarehouse />} />
         <Route path='/warehouse/add-goods' element={<AddGoods />} />
-        <Route path='/' element={<ViewWarehouseStock />} />
+        <Route path='/warehouse/stock' element={<ViewWarehouseStock />} />
 
         {/* store */}
         <Route path='/store/add' element={<AddStore />} />

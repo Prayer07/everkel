@@ -24,7 +24,7 @@ export default function AddWarehouse() {
       <button>Add</button>
     </form>
     <button> <Link to="/warehouse/add-goods" style={{textDecoration: "none"}}>Add Goods</Link> </button>
-    <button> <Link to="/" style={{textDecoration: "none"}}>View Warehouse</Link> </button>
+    <button> <Link to="/warehouse/stock" style={{textDecoration: "none"}}>View Warehouse</Link> </button>
     </>
   )
 }
