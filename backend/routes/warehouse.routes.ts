@@ -80,55 +80,98 @@ router.get("/stock", async (_req, res) => {
   }
 })
 
+// EDIT WAREHOUSE
+router.put("/:id", async (req, res) => {
+  try {
+    const id = Number(req.params.id)
+    const { name, location } = req.body
+
+    if (!name || !location) {
+      return res.status(400).json({ error: "Name and location required" })
+    }
+
+    const updated = await prisma.warehouse.update({
+      where: { id },
+      data: { name, location },
+    })
+
+    res.json(updated)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to update warehouse" })
+  }
+})
+
+// DELETE WAREHOUSE
+router.delete("/:id", async (req, res) => {
+  try {
+    const id = Number(req.params.id)
+
+    // delete goods first
+    await prisma.warehouseGoods.deleteMany({
+      where: { warehouseId: id },
+    })
+
+    await prisma.warehouse.delete({
+      where: { id },
+    })
+
+    res.json({ message: "Warehouse deleted" })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to delete warehouse" })
+  }
+})
+
+
+// EDIT GOODS
+router.put("/goods/:id", async (req, res) => {
+  try {
+    const id = Number(req.params.id)
+    const { productName, quantity, costPrice, sellingPrice } = req.body
+
+    if (
+      !productName ||
+      quantity === undefined ||
+      costPrice === undefined ||
+      sellingPrice === undefined
+    ) {
+      return res.status(400).json({
+        error: "All fields required",
+      })
+    }
+
+    const updated = await prisma.warehouseGoods.update({
+      where: { id },
+      data: {
+        productName,
+        quantity: Number(quantity),
+        costPrice: Number(costPrice),
+        sellingPrice: Number(sellingPrice),
+      },
+    })
+
+    res.json(updated)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to update goods" })
+  }
+})
+
+// DELETE GOODS
+router.delete("/goods/:id", async (req, res) => {
+  try {
+    const id = Number(req.params.id)
+
+    await prisma.warehouseGoods.delete({
+      where: { id },
+    })
+
+    res.json({ message: "Goods deleted" })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to delete goods" })
+  }
+})
+
 export default router
-
-
-
-
-
-// import { Router } from "express"
-// import prisma from "../common/prisma.js"
-
-// const router = Router()
-
-// console.log("Prisma models:", Object.keys(prisma))
-
-
-// // Add warehouse
-// router.post("/", async (req, res) => {
-//   const { name, location } = req.body
-
-//   const warehouse = await prisma.warehouse.create({
-//     data: { name, location },
-//   })
-
-//   res.json(warehouse)
-// })
-
-// // Add goods to warehouse
-// router.post("/goods", async (req, res) => {
-//   const { name, quantity, warehouseId } = req.body
-
-//   const goods = await prisma.goods.create({
-//     data: {
-//       name,
-//       quantity: Number(quantity),
-//       warehouseId: Number(warehouseId),
-//     },
-//   })
-
-//   res.json(goods)
-// })
-
-// // View warehouse stock
-// router.get("/stock", async (req, res) => {
-//   const stock = await prisma.warehouse.findMany({
-//     include: {
-//       goods: true,
-//     },
-//   })
-
-//   res.json(stock)
-// })
-
-// export default router

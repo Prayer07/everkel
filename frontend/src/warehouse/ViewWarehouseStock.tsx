@@ -26,67 +26,87 @@ export default function ViewWarehouseStock() {
       <h2>Warehouse Stock</h2>
 
       {data.map(w => (
-        <div key={w.id} className="card">
-          <h3>{w.name} — {w.location}</h3>
+      <div key={w.id} className="card">
+        <h3>{w.name} — {w.location}</h3>
 
-          {w.goods.length === 0 && <p>No goods</p>}
+        <button
+          onClick={async () => {
+            const newName = prompt("New warehouse name", w.name)
+            const newLocation = prompt("New location", w.location)
 
-          {w.goods.map((g: any) => (
-            <p key={g.id}>
-              {g.productName} — Qty: {g.quantity} — ₦{g.sellingPrice}
-            </p>
-          ))}
+            if (!newName || !newLocation) return
+
+            await api.put(`/warehouse/${w.id}`, {
+              name: newName,
+              location: newLocation,
+            })
+
+            alert("Warehouse updated")
+            window.location.reload()
+          }}
+        >
+          Edit
+        </button>
+
+        <button
+          onClick={async () => {
+            if (!confirm("Delete this warehouse?")) return
+
+            await api.delete(`/warehouse/${w.id}`)
+            alert("Warehouse deleted")
+            window.location.reload()
+          }}
+        >
+          Delete
+        </button>
+
+        {w.goods.length === 0 && <p>No goods</p>}
+
+        {w.goods.map((g: any) => (
+          <div key={g.id}>
+          <p>
+            {g.productName} — Qty: {g.quantity} — ₦{g.sellingPrice}
+          </p>
+
+          <button
+            onClick={async () => {
+              const productName = prompt("Product name", g.productName)
+              const quantity = prompt("Quantity", g.quantity)
+              const costPrice = prompt("Cost price", g.costPrice)
+              const sellingPrice = prompt("Selling price", g.sellingPrice)
+
+              if (!productName || !quantity || !costPrice || !sellingPrice) return
+
+              await api.put(`/warehouse/goods/${g.id}`, {
+                productName,
+                quantity,
+                costPrice,
+                sellingPrice,
+              })
+
+              window.location.reload()
+            }}
+          >
+            Edit Item
+          </button>
+
+          <button
+            onClick={async () => {
+              if (!confirm("Delete this product?")) return
+
+              await api.delete(`/warehouse/goods/${g.id}`)
+              window.location.reload()
+            }}
+          >
+            Delete Item
+          </button>
         </div>
-      ))}
+        ))}
+      </div>
+    ))}
+
       <button> <Link to="/warehouse/add" style={{textDecoration: "none"}}>Add Warehouse</Link> </button>
       <button> <Link to="/warehouse/add-goods" style={{textDecoration: "none"}}>Add Goods</Link> </button>
     </div>
   )
 }
-
-
-
-// import '../styles/table.css'
-
-// const goods = [
-//   {
-//     product_name: 'Rice',
-//     quantity: 50,
-//     cost_price: 12000,
-//     selling_price: 15000,
-//     date_added: '2026-01-10'
-//   }
-// ]
-
-// export default function ViewWarehouseStock() {
-//   return (
-//     <div>
-//       <h2>Warehouse Stock</h2>
-
-//       <table>
-//         <thead>
-//           <tr>
-//             <th>Product</th>
-//             <th>Qty</th>
-//             <th>Cost</th>
-//             <th>Selling</th>
-//             <th>Date Added</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {goods.map((g, i) => (
-//             <tr key={i}>
-//               <td>{g.product_name}</td>
-//               <td>{g.quantity}</td>
-//               <td>{g.cost_price}</td>
-//               <td>{g.selling_price}</td>
-//               <td>{g.date_added}</td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </table>
-//       <p>Other links to help u navigate</p>
-        
-//     </div>
-//   )
-// }
