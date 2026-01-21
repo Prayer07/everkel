@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5000;
 
 const allowedOrigins = [
   "http://localhost:5173",          // local frontend (Vite)
-  "https://everkel.vercel.app/api"      // production frontend
+  "https://everkel.vercel.app"      // production frontend
 ];
 
 app.use(
@@ -36,6 +36,6 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-app.use('/api/auth', authRoutes)
-app.use('/api/warehouse', warehouseRoutes)
+app.use('/auth', authRoutes)
+app.use('/warehouse', warehouseRoutes)
 // app.use("/dashboard", dashboardRoutes)
