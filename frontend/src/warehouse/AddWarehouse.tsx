@@ -1,7 +1,10 @@
 import { useState } from "react"
 import { api } from "../lib/api"
-import "../styles/warehouse.css"
 import { Link } from "react-router-dom"
+import { toast } from "sonner"
+import { Button } from "../components/ui/button"
+import { Input } from "../components/ui/input"
+import { Card } from "../components/ui/card"
 
 export default function AddWarehouse() {
   const [name, setName] = useState("")
@@ -10,37 +13,26 @@ export default function AddWarehouse() {
   const submit = async (e: React.FormEvent) => {
     e.preventDefault()
     await api.post("/warehouse", { name, location })
-    alert("Warehouse added")
+    toast.success("Warehouse added")
     setName("")
     setLocation("")
   }
 
   return (
-    <>
-    <form className="form" onSubmit={submit}>
-      <h2>Add Warehouse</h2>
-      <input placeholder="Warehouse name" value={name} onChange={e => setName(e.target.value)} />
-      <input placeholder="Location" value={location} onChange={e => setLocation(e.target.value)} />
-      <button>Add</button>
-    </form>
-    <button> <Link to="/warehouse/add-goods" style={{textDecoration: "none"}}>Add Goods</Link> </button>
-    <button> <Link to="/warehouse/stock" style={{textDecoration: "none"}}>View Warehouse</Link> </button>
-    </>
+    <Card className="max-w-md p-6 border-[#e5ddd5]">
+      <form onSubmit={submit} className="space-y-4">
+        <h2 className="text-lg font-semibold text-[#3e2f25]">Add Warehouse</h2>
+
+        <Input placeholder="Warehouse name" value={name} onChange={e => setName(e.target.value)} />
+        <Input placeholder="Location" value={location} onChange={e => setLocation(e.target.value)} />
+
+        <Button className="w-full bg-[#6f4e37] hover:bg-[#5c402d]">Add</Button>
+
+        <div className="flex justify-between text-sm">
+          <Link to="/warehouse/add-goods" className="text-[#6f4e37]">Add Goods</Link>
+          <Link to="/warehouse/stock" className="text-[#6f4e37]">View Warehouse</Link>
+        </div>
+      </form>
+    </Card>
   )
 }
-
-
-
-
-// import "../styles/form.css"
-
-// export default function AddWarehouse() {
-//   return (
-//     <>
-//       <h2>Add Warehouse</h2>
-//       <input placeholder="Warehouse Name" />
-//       <input placeholder="Location" />
-//       <button>Add</button>
-//     </>
-//   )
-// }

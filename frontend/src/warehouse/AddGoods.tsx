@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react"
 import { api } from "../lib/api"
-import '../styles/warehouse.css'
 import { Link } from "react-router-dom"
+import { toast } from "sonner"
+import { Button } from "../components/ui/button"
+import { Input } from "../components/ui/input"
+import { Card } from "../components/ui/card"
 
 interface Warehouse {
   id: number;
@@ -9,12 +12,8 @@ interface Warehouse {
   quantity: number;
 }
 
-interface MyResponse {
-  data: Warehouse[];
-}
-
 export default function AddGoods() {
-  const [warehouses, setWarehouses] = useState<any[]>([])
+  const [warehouses, setWarehouses] = useState<Warehouse[]>([])
   const [productName, setProductName] = useState("")
   const [quantity, setQuantity] = useState("")
   const [costPrice, setCostPrice] = useState("")
@@ -22,7 +21,7 @@ export default function AddGoods() {
   const [warehouseId, setWarehouseId] = useState("")
 
   useEffect(() => {
-    api.get("/warehouse/stock").then((res: MyResponse) => setWarehouses(res.data))
+    api.get("/warehouse/stock").then(res => setWarehouses(res.data))
   }, [])
 
   const submit = async (e: React.FormEvent) => {
@@ -36,76 +35,36 @@ export default function AddGoods() {
       sellingPrice,
     })
 
-    alert("Goods added")
+    toast.success("Goods added")
   }
 
   return (
-    <>
-    <form className="form" onSubmit={submit}>
-      <h2>Add Goods</h2>
+    <Card className="max-w-md p-6 border-[#e5ddd5]">
+      <form onSubmit={submit} className="space-y-4">
+        <h2 className="text-lg font-semibold text-[#3e2f25]">Add Goods</h2>
 
-      <input
-        placeholder="Product name"
-        value={productName}
-        onChange={e => setProductName(e.target.value)}
-      />
+        <Input placeholder="Product name" value={productName} onChange={e => setProductName(e.target.value)} />
+        <Input type="number" placeholder="Quantity" value={quantity} onChange={e => setQuantity(e.target.value)} />
+        <Input type="number" placeholder="Cost price" value={costPrice} onChange={e => setCostPrice(e.target.value)} />
+        <Input type="number" placeholder="Selling price" value={sellingPrice} onChange={e => setSellingPrice(e.target.value)} />
 
-      <input
-        type="number"
-        placeholder="Quantity"
-        value={quantity}
-        onChange={e => setQuantity(e.target.value)}
-      />
+        <select
+          className="w-full border rounded px-3 py-2"
+          onChange={e => setWarehouseId(e.target.value)}
+        >
+          <option value="">Select warehouse</option>
+          {warehouses.map(w => (
+            <option key={w.id} value={w.id}>{w.name}</option>
+          ))}
+        </select>
 
-      <input
-        type="number"
-        placeholder="Cost price"
-        value={costPrice}
-        onChange={e => setCostPrice(e.target.value)}
-      />
+        <Button className="w-full bg-[#6f4e37] hover:bg-[#5c402d]">Add</Button>
 
-      <input
-        type="number"
-        placeholder="Selling price"
-        value={sellingPrice}
-        onChange={e => setSellingPrice(e.target.value)}
-      />
-
-      <select onChange={e => setWarehouseId(e.target.value)}>
-        <option value="">Select warehouse</option>
-        {warehouses.map(w => (
-          <option key={w.id} value={w.id}>
-            {w.name}
-          </option>
-        ))}
-      </select>
-
-      <button>Add</button>
-    </form>
-    <button> <Link to="/warehouse/add" style={{textDecoration: "none"}}>Add Warehouse</Link> </button>
-    <button> <Link to="/warehouse/stock" style={{textDecoration: "none"}}>View Warehouse</Link> </button>
-    </>
+        <div className="flex justify-between text-sm">
+          <Link to="/warehouse/add" className="text-[#6f4e37]">Add Warehouse</Link>
+          <Link to="/warehouse/stock" className="text-[#6f4e37]">View Warehouse</Link>
+        </div>
+      </form>
+    </Card>
   )
 }
-
-
-
-
-
-// import '../styles/form.css'
-
-// export default function AddGoods() {
-//   return (
-//     <div>
-//       <h2>Add Goods to Warehouse</h2>
-
-//       <input placeholder="Warehouse ID" />
-//       <input placeholder="Product Name" />
-//       <input type="number" placeholder="Quantity" />
-//       <input type="number" placeholder="Cost Price" />
-//       <input type="number" placeholder="Selling Price" />
-
-//       <button>Add Goods</button>
-//     </div>
-//   )
-// }
