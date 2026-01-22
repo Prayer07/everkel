@@ -108,6 +108,9 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 -- CreateIndex
 CREATE INDEX "Session_userId_idx" ON "Session"("userId");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "StoreGoods_storeId_productName_key" ON "StoreGoods"("storeId", "productName");
+
 -- AddForeignKey
 ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
