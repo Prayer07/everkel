@@ -32,6 +32,7 @@ import ClearDebt from './debtors/ClearDebt'
 import { Toaster } from "sonner"
 import ProtectedRoute from './components/ProtectedRoute'
 import WarehouseGoods from './warehouse/WarehouseGoods '
+import TransferHistory from './store/TransferHistory'
 
 
 export default function App() {
@@ -69,6 +70,7 @@ export default function App() {
           <Route path="/store/add" element={<AddStore />} />
           <Route path="/store/transfer" element={<TransferGoods />} />
           <Route path="/store/stock" element={<ViewStoreStock />} />
+          <Route path="/transfer-history" element={<TransferHistory />} />
 
           {/* pos */}
           <Route path="/pos" element={<POS />} />

@@ -36,6 +36,11 @@ export default function AddGoods() {
     })
 
     toast.success("Goods added")
+    setProductName("")
+    setQuantity("")
+    setCostPrice("")
+    setSellingPrice("")
+    setWarehouseId("")
   }
 
   return (

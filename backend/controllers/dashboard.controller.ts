@@ -17,10 +17,14 @@ export const getDashboardStats = async (req: Request, res: Response) => {
       },
     })
 
+    const stores = await prisma.store.count({
+      where: { userId },
+    })
+
     res.json({
       warehouses,
       products,
-      stores: 0,
+      stores,
       debtors: 0,
     })
   } catch (err) {

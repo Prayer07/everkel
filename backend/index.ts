@@ -3,7 +3,8 @@ import cors from 'cors';
 import cookieParser from "cookie-parser"
 import warehouseRoutes from './routes/warehouse.route.js'
 import authRoutes from './routes/auth.route.js'
-// import dashboardRoutes from "./routes/dashboard.routes.js"
+import dashboardRoutes from "./routes/dashboard.route.js"
+import storeRoutes from "./routes/store.route.js"
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -38,4 +39,5 @@ app.listen(PORT, () => {
 
 app.use('/auth', authRoutes)
 app.use('/warehouse', warehouseRoutes)
-// app.use("/dashboard", dashboardRoutes)
+app.use("/dashboard", dashboardRoutes)
+app.use("/store", storeRoutes)

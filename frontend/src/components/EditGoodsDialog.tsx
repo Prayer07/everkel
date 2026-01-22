@@ -11,7 +11,7 @@ import {
 import { Input } from "./ui/input"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { editGoodsSchema, type EditGoodsSchema } from "../utils/goods.schema"
+import { editGoodsSchema, type EditGoodsSchema } from "../schema/goods.schema"
 
 interface Props {
   goods: any

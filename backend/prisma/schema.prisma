@@ -8,20 +8,23 @@ datasource db {
 }
 
 model User {
-  id        Int         @id @default(autoincrement())
-  fullName  String
-  email     String      @unique
-  password  String
-  createdAt DateTime    @default(now())
-  sessions  Session[]
-  warehouse Warehouse[]
+  id               Int             @id @default(autoincrement())
+  fullName         String
+  email            String          @unique
+  password         String
+  createdAt        DateTime        @default(now())
+  sessions         Session[]
+  warehouse        Warehouse[]
+  store            Store[]
+  stockTransfersTo StockTransfer[]
 }
 
 model Session {
   id        String   @id @default(uuid())
   userId    Int
   expiresAt DateTime
-  user User @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
   @@index([userId])
 }
 
@@ -34,6 +37,9 @@ model Warehouse {
   goods     WarehouseGoods[]
   createdAt DateTime         @default(now())
   updatedAt DateTime         @updatedAt
+
+  // 👇 ADD THIS
+  stockTransfersFrom StockTransfer[] @relation("FromWarehouse")
 }
 
 model WarehouseGoods {
@@ -52,7 +58,14 @@ model Store {
   id        Int          @id @default(autoincrement())
   storeName String
   location  String
+  userId    Int
+  user      User         @relation(fields: [userId], references: [id])
   goods     StoreGoods[]
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  // 👇 ADD THIS  
+  stockTransfersTo StockTransfer[]
 }
 
 model StoreGoods {
@@ -60,9 +73,30 @@ model StoreGoods {
   storeId      Int
   productName  String
   quantity     Int
+  costPrice    Float
   sellingPrice Float
 
   store Store @relation(fields: [storeId], references: [id])
+
+  @@unique([storeId, productName])
+}
+
+model StockTransfer {
+  id Int @id @default(autoincrement())
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  productName String
+  quantity    Int
+
+  fromWarehouseId Int
+  fromWarehouse   Warehouse @relation("FromWarehouse", fields: [fromWarehouseId], references: [id])
+
+  toStoreId Int
+  toStore   Store @relation(fields: [toStoreId], references: [id])
+
+  createdAt DateTime @default(now())
 }
 
 model Customer {

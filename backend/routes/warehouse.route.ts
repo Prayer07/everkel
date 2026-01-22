@@ -16,7 +16,7 @@ router.post("/", requireAuth, addWarehouse)
 
 router.post("/goods", requireAuth, addGoods)
 
-router.get("/stock", viewStocks)
+router.get("/stock", requireAuth, viewStocks)
 
 router.put("/:id", requireAuth, editWarehouse)
 
