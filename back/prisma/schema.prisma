@@ -1,0 +1,119 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" // change to mysql later if you want
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               Int             @id @default(autoincrement())
+  fullName         String
+  email            String          @unique
+  password         String
+  createdAt        DateTime        @default(now())
+  sessions         Session[]
+  warehouse        Warehouse[]
+  store            Store[]
+  stockTransfersTo StockTransfer[]
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  userId    Int
+  expiresAt DateTime
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+}
+
+model Warehouse {
+  id        Int              @id @default(autoincrement())
+  name      String
+  location  String
+  userId    Int
+  user      User             @relation(fields: [userId], references: [id])
+  goods     WarehouseGoods[]
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  // 👇 ADD THIS
+  stockTransfersFrom StockTransfer[] @relation("FromWarehouse")
+}
+
+model WarehouseGoods {
+  id           Int      @id @default(autoincrement())
+  warehouseId  Int
+  productName  String
+  quantity     Int
+  costPrice    Float
+  sellingPrice Float
+  dateAdded    DateTime @default(now())
+
+  warehouse Warehouse @relation(fields: [warehouseId], references: [id])
+}
+
+model Store {
+  id        Int          @id @default(autoincrement())
+  storeName String
+  location  String
+  userId    Int
+  user      User         @relation(fields: [userId], references: [id])
+  goods     StoreGoods[]
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  // 👇 ADD THIS  
+  stockTransfersTo StockTransfer[]
+}
+
+model StoreGoods {
+  id           Int    @id @default(autoincrement())
+  storeId      Int
+  productName  String
+  quantity     Int
+  costPrice    Float
+  sellingPrice Float
+
+  store Store @relation(fields: [storeId], references: [id])
+
+  @@unique([storeId, productName])
+}
+
+model StockTransfer {
+  id Int @id @default(autoincrement())
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  productName String
+  quantity    Int
+
+  fromWarehouseId Int
+  fromWarehouse   Warehouse @relation("FromWarehouse", fields: [fromWarehouseId], references: [id])
+
+  toStoreId Int
+  toStore   Store @relation(fields: [toStoreId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+model Customer {
+  id       Int    @id @default(autoincrement())
+  fullName String
+  phone    String
+  address  String
+  debts    Debt[]
+}
+
+model Debt {
+  id          Int      @id @default(autoincrement())
+  customerId  Int
+  totalAmount Float
+  amountPaid  Float    @default(0)
+  balance     Float
+  dateCreated DateTime @default(now())
+
+  customer Customer @relation(fields: [customerId], references: [id])
+}
