@@ -8,10 +8,11 @@ import { toast } from "sonner"
 import { Button } from "../components/ui/button"
 import { Input } from "../components/ui/input"
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
+import { useAuth } from "../context/AuthContext"
 
 export default function Login() {
   const navigate = useNavigate()
-
+  const { login } = useAuth()
   const {
     register,
     handleSubmit,
@@ -23,6 +24,7 @@ export default function Login() {
   async function onSubmit(data: LoginInput) {
     try {
       await api.post("/auth/login", data)
+      await login()
       toast.success("Welcome back")
       navigate("/dashboard")
     } catch (err: any) {
