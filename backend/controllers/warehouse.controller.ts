@@ -72,7 +72,7 @@ export const addGoods = async (req: Request, res: Response) => {
 export const viewStocks = async (req: Request, res: Response) => {
   try {
     const stock = await prisma.warehouse.findMany({
-      where: { userId: req.user?.id },   // 👈 per user
+      where: { userId: req.user.id },   // 👈 per user
       orderBy: { updatedAt: "desc" },   // 👈 latest on top
       include: { goods: true },
     })

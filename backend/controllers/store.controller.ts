@@ -14,9 +14,9 @@ export const addStore = async (req: Request, res: Response) => {
 
     const store = await prisma.store.create({
       data: {
-        storeName ,
+        storeName,
         location,
-        userId: req.user?.id,
+        userId: req.user.id,
       },
     })
 
@@ -33,7 +33,7 @@ export const addStore = async (req: Request, res: Response) => {
 export const viewStoreStock = async (req: Request, res: Response) => {
   try {
     const stores = await prisma.store.findMany({
-      where: { userId: req.user?.id },
+      where: { userId: req.user.id },
       orderBy: { updatedAt: "desc" },
       include: { goods: true },
     })
