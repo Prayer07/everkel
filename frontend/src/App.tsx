@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 
 // auth
 import Login from './auth/Login'
@@ -82,7 +82,7 @@ export default function App() {
       </Route>
 
       {/* fallback */}
-      <Route path="*" element={<Navigate to="/dashboard" />} />
+      {/* <Route path="*" element={<Navigate to="/dashboard" />} /> */}
     </Routes>
     </>
   )
