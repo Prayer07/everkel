@@ -1,6 +1,6 @@
 import type { Request, Response } from "express"
 import bcrypt from "bcrypt"
-import prisma from "../../back/common/prisma.js"
+import prisma from "../common/prisma.js"
 import { createSession } from "../utils/session.js"
 
 

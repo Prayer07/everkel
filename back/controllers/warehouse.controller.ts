@@ -1,5 +1,5 @@
 import type { Request, Response } from "express"
-import prisma from "../../back/common/prisma.js"
+import prisma from "../common/prisma.js"
 
 console.log("warehouse exists:", typeof prisma.warehouse)
 
