@@ -6,6 +6,11 @@ import prisma from "../common/prisma.js"
  */
 export const addStore = async (req: Request, res: Response) => {
   try {
+
+    if (!req.user) {
+      return res.status(401).json({ error: "Unauthorized" })
+    }
+    
     const { storeName, location } = req.body
 
     if (!storeName || !location) {

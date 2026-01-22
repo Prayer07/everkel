@@ -3,6 +3,10 @@ import prisma from "../common/prisma.js"
 
 export const getDashboardStats = async (req: Request, res: Response) => {
   try {
+    
+    if (!req.user) {
+      return res.status(401).json({ error: "Unauthorized" })
+    }
     const userId = req.user.id
 
     const warehouses = await prisma.warehouse.count({
