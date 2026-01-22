@@ -1,6 +1,5 @@
 import { z } from "zod"
 
-
 export const addStoreSchema = z.object({
   storeName: z.string().min(1, "Store name is required"),
   location: z.string().min(1, "Location is required"),

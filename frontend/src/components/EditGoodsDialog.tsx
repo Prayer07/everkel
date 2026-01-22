@@ -85,7 +85,7 @@ export default function EditGoodsDialog({ goods, onUpdated }: Props) {
 
           {/* QUANTITY */}
           <div className="space-y-1">
-            <Input type="number" {...form.register("quantity")} />
+            <Input type="number" {...form.register("quantity", { valueAsNumber: true })} />
             {form.formState.errors.quantity && (
               <p className="text-xs text-red-500">
                 {form.formState.errors.quantity.message}
@@ -95,7 +95,11 @@ export default function EditGoodsDialog({ goods, onUpdated }: Props) {
           
           {/* COST PRICE */}
           <div className="space-y-1">
-            <Input type="number" {...form.register("costPrice")} />
+            <Input 
+              type="number" 
+              step="0.01"
+              {...form.register("costPrice", { valueAsNumber: true })} 
+            />
             {form.formState.errors.costPrice && (
               <p className="text-xs text-red-500">
                 {form.formState.errors.costPrice.message}
@@ -105,7 +109,11 @@ export default function EditGoodsDialog({ goods, onUpdated }: Props) {
 
           {/* SELLING PRICE */}
           <div className="space-y-1">
-            <Input type="number" {...form.register("sellingPrice")} />
+            <Input 
+              step="0.01"
+              type="number" 
+              {...form.register("sellingPrice", { valueAsNumber: true })} 
+            />
             {form.formState.errors.sellingPrice && (
               <p className="text-xs text-red-500">
                 {form.formState.errors.sellingPrice.message}

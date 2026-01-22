@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { loginSchema, type LoginInput } from "../schema/auth.schema"
+import { loginSchema, type LoginInput } from "../utils/auth.schema"
 import { api } from "../lib/api"
 import { useNavigate, Link } from "react-router-dom"
 import { toast } from "sonner"

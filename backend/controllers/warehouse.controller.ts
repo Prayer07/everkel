@@ -146,9 +146,9 @@ export const editGoods = async (req: Request, res: Response) => {
         where: { id: goodsId },
         data: {
           productName,
-          quantity,
-          costPrice,
-          sellingPrice,
+          quantity: Number(quantity),
+          costPrice: Number(costPrice),
+          sellingPrice: Number(sellingPrice),
         },
       }),
 
