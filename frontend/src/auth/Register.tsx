@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { registerSchema, type RegisterInput } from "../utils/auth.schema"
+import { registerSchema, type RegisterInput } from "../schema/auth.schema"
 import { api } from "../lib/api"
 import { useNavigate, Link } from "react-router-dom"
 import { toast } from "sonner"
