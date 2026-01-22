@@ -30,8 +30,9 @@ export const register = async (req: Request, res: Response) => {
   res
     .cookie("session_id", sessionId, {
       httpOnly: true,
-      sameSite: "lax",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // 🔥
       expires: expiresAt,
+      secure: process.env.NODE_ENV === "production",
     })
     .json({ id: user.id, fullName: user.fullName, email: user.email })
 }
@@ -55,8 +56,8 @@ export const login = async (req: Request, res: Response) => {
   res
     .cookie("session_id", sessionId, {
       httpOnly: true,
-      sameSite: "lax",  // 🔥 REQUIRED cross-domain
-      secure: false,     // 🔥 REQUIRED on HTTPS
+      secure: process.env.NODE_ENV === "production", // 🔥
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // 🔥
       expires: expiresAt,
     })
     .json({ id: user.id, fullName: user.fullName, email: user.email })
