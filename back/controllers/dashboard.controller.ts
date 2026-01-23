@@ -24,12 +24,16 @@ export const getDashboardStats = async (req: Request, res: Response) => {
     const stores = await prisma.store.count({
       where: { userId },
     })
+    
+    const debtors = await prisma.debt.count({
+      where: { id: userId },
+    })
 
     res.json({
       warehouses,
       products,
       stores,
-      debtors: 0,
+      debtors,
     })
   } catch (err) {
     console.error(err)

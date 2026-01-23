@@ -5,6 +5,8 @@ import warehouseRoutes from './routes/warehouse.route.js'
 import authRoutes from './routes/auth.route.js'
 import dashboardRoutes from "./routes/dashboard.route.js"
 import storeRoutes from "./routes/store.route.js"
+import posRoutes from './routes/pos.routes.js';
+import debtorRoutes from './routes/debtor.route.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -41,3 +43,5 @@ app.use('/auth', authRoutes)
 app.use('/warehouse', warehouseRoutes)
 app.use("/dashboard", dashboardRoutes)
 app.use("/store", storeRoutes)
+app.use("/pos", posRoutes)
+app.use("/debtors", debtorRoutes)

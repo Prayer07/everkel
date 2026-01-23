@@ -1,7 +1,6 @@
 import { useState } from "react"
 import Sidebar from "./Sidebar"
 import Topbar from "./Topbar"
-import "../styles/layout.css"
 import { Outlet } from "react-router-dom"
 
 export default function Layout() {

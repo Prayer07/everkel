@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { api } from "../lib/api";
+import { toast } from "sonner";
+import { navigate } from "../util/navigate";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext"
 
 type TopbarProps = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -8,6 +12,8 @@ type TopbarProps = {
 
 export default function Topbar({ setOpen }: TopbarProps) {
   const [user, setUser] = useState<any>(null)
+  const navigateTo = useNavigate()
+  const { logout } = useAuth()
 
   useEffect(() => {
     async function fetchUser() {
@@ -20,6 +26,21 @@ export default function Topbar({ setOpen }: TopbarProps) {
     }
     fetchUser()
   }, [])
+
+  const handleLogout = async () => {
+    try {
+      await logout()
+
+      toast.success("Logged out")
+      navigate({
+        link: navigateTo,
+        url: "/login",
+        time: 1000
+      })
+    } catch {
+      toast.error("Logout failed")
+    }
+  }
 
   return (
     <header className="h-14 border-b border-[#e5ddd5] bg-[#f5f1ec] flex items-center justify-between px-3 sm:px-4 md:px-6">
@@ -41,6 +62,7 @@ export default function Topbar({ setOpen }: TopbarProps) {
 
       <Button
         // size="sm"
+        onClick={handleLogout}
         className="bg-[#6f4e37] hover:bg-[#5c402d] text-white"
       >
         Logout

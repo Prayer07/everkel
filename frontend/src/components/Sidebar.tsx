@@ -36,7 +36,7 @@ export default function Sidebar({ open, setOpen }: SidebarProps) {
             ["Warehouse", "/warehouse/stock"],
             ["Store", "/store/stock"],
             ["POS", "/pos"],
-            ["Debtors", "/debtors/add-customer"],
+            ["Debtors", "/debtors"],
           ].map(([label, path]) => (
             <Link
               key={path}

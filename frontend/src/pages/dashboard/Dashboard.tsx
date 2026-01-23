@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { api } from "../lib/api"
-import StatCard from "../components/StatCard"
+import { api } from "../../lib/api"
+import StatCard from "../../components/StatCard"
 
 type DashboardStats = {
   warehouses: number

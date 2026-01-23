@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react"
-import { api } from "../lib/api"
+import { api } from "../../lib/api"
 import { Link } from "react-router-dom"
-import { Button } from "../components/ui/button"
-import { Card } from "../components/ui/card"
+import { Button } from "../../components/ui/button"
+import { Card } from "../../components/ui/card"
 
-import EditGoodsDialog from "../components/EditGoodsDialog"
-import DeleteGoodsButton from "../components/DeleteGoodsButton"
-import EditWarehouseDialog from "../components/EditWarehouseDialog"
-import DeleteWarehouseButton from "../components/DeleteWarehouseButton"
-import { Input } from "../components/ui/input"
+import EditGoodsDialog from "../../components/EditGoodsDialog"
+import DeleteGoodsButton from "../../components/DeleteGoodsButton"
+import EditWarehouseDialog from "../../components/EditWarehouseDialog"
+import DeleteWarehouseButton from "../../components/DeleteWarehouseButton"
+import { Input } from "../../components/ui/input"
 
 function createDate(dateString: string) {
   return new Date(dateString).toLocaleString("en-GB", {

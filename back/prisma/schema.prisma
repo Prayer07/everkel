@@ -7,6 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 model User {
   id               Int             @id @default(autoincrement())
   fullName         String
@@ -17,7 +18,9 @@ model User {
   warehouse        Warehouse[]
   store            Store[]
   stockTransfersTo StockTransfer[]
+  product          PosProduct[]
 }
+
 
 model Session {
   id        String   @id @default(uuid())
@@ -27,6 +30,7 @@ model Session {
 
   @@index([userId])
 }
+
 
 model Warehouse {
   id        Int              @id @default(autoincrement())
@@ -42,6 +46,7 @@ model Warehouse {
   stockTransfersFrom StockTransfer[] @relation("FromWarehouse")
 }
 
+
 model WarehouseGoods {
   id           Int      @id @default(autoincrement())
   warehouseId  Int
@@ -53,6 +58,7 @@ model WarehouseGoods {
 
   warehouse Warehouse @relation(fields: [warehouseId], references: [id])
 }
+
 
 model Store {
   id        Int          @id @default(autoincrement())
@@ -68,6 +74,7 @@ model Store {
   stockTransfersTo StockTransfer[]
 }
 
+
 model StoreGoods {
   id           Int    @id @default(autoincrement())
   storeId      Int
@@ -80,6 +87,7 @@ model StoreGoods {
 
   @@unique([storeId, productName])
 }
+
 
 model StockTransfer {
   id Int @id @default(autoincrement())
@@ -99,21 +107,44 @@ model StockTransfer {
   createdAt DateTime @default(now())
 }
 
+
 model Customer {
   id       Int    @id @default(autoincrement())
+  userId   Int
   fullName String
   phone    String
   address  String
+  
   debts    Debt[]
 }
+
 
 model Debt {
   id          Int      @id @default(autoincrement())
   customerId  Int
+  customer    Customer @relation(fields: [customerId], references: [id])
+
   totalAmount Float
   amountPaid  Float    @default(0)
   balance     Float
-  dateCreated DateTime @default(now())
 
-  customer Customer @relation(fields: [customerId], references: [id])
+  isCleared   Boolean  @default(false)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+
+model PosProduct {
+  id           Int      @id @default(autoincrement())
+  userId       Int
+  user         User     @relation(fields: [userId], references: [id])
+
+  productName  String
+  quantity     Int
+  costPrice    Float
+  sellingPrice Float
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }

@@ -1,11 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
-import { Button } from "../components/ui/button"
-import { Card } from "../components/ui/card"
-import { Input } from "../components/ui/input"
-import { api } from "../lib/api"
-import { type AddStoreInput, addStoreSchema } from "../schema/store.schema"
+import { Button } from "../../components/ui/button"
+import { Card } from "../../components/ui/card"
+import { Input } from "../../components/ui/input"
+import { api } from "../../lib/api"
+import { type AddStoreInput, addStoreSchema } from "../../schema/store.schema"
 
 export default function AddStore() {
   const {

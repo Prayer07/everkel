@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { api } from "../lib/api"
-import { Button } from "../components/ui/button"
-import { Card } from "../components/ui/card"
+import { api } from "../../lib/api"
+import { Button } from "../../components/ui/button"
+import { Card } from "../../components/ui/card"
 
-import EditGoodsDialog from "../components/EditGoodsDialog"
-import DeleteGoodsButton from "../components/DeleteGoodsButton"
-import { Input } from "../components/ui/input"
+import EditGoodsDialog from "../../components/EditGoodsDialog"
+import DeleteGoodsButton from "../../components/DeleteGoodsButton"
+import { Input } from "../../components/ui/input"
 
 export default function WarehouseGoods() {
   const { id } = useParams()

@@ -8,31 +8,32 @@ import Register from './auth/Register'
 import Layout from './components/Layout'
 
 // dashboard
-import Dashboard from './dashboard/Dashboard'
+import Dashboard from './pages/dashboard/Dashboard'
 
 // warehouse
-import AddWarehouse from './warehouse/AddWarehouse'
-import AddGoods from './warehouse/AddGoods'
-import ViewWarehouseStock from './warehouse/ViewWarehouseStock'
+import AddWarehouse from './pages/warehouse/AddWarehouse'
+import AddGoods from './pages/warehouse/AddGoods'
+import ViewWarehouseStock from './pages/warehouse/ViewWarehouseStock'
+import WarehouseGoods from './pages/warehouse/WarehouseGoods '
 
 // store
-import AddStore from './store/AddStore'
-import TransferGoods from './store/TransferGoods'
-import ViewStoreStock from './store/ViewStoreStock'
+import AddStore from './pages/store/AddStore'
+import TransferGoods from './pages/store/TransferGoods'
+import ViewStoreStock from './pages/store/ViewStoreStock'
+import TransferHistory from './pages/store/TransferHistory'
 
 // pos
-import POS from './pos/POS'
+import PosList from './pages/pos/PosList'
+import AddPosProduct from './pages/pos/AddPosProduct'
 
 // debtors
-import AddCustomer from './debtors/AddCustomer'
-import AddDebt from './debtors/AddDebt'
-import AddPayment from './debtors/AddPayment'
-import ClearDebt from './debtors/ClearDebt'
+import DebtorsList from "./pages/debtors/DebtorsList"
+import AddCustomer from "./pages/debtors/AddCustomer"
+import AddDebt from "./pages/debtors/AddDebt"
+import DebtDetails from "./pages/debtors/DebtDetails"
 
 import { Toaster } from "sonner"
 import ProtectedRoute from './components/ProtectedRoute'
-import WarehouseGoods from './warehouse/WarehouseGoods '
-import TransferHistory from './store/TransferHistory'
 
 
 export default function App() {
@@ -73,13 +74,18 @@ export default function App() {
           <Route path="/transfer-history" element={<TransferHistory />} />
 
           {/* pos */}
-          <Route path="/pos" element={<POS />} />
+          <Route path="/pos" element={<PosList />} />
+          <Route path="/pos/add" element={<AddPosProduct />} />
+
 
           {/* debtors */}
-          <Route path="/debtors/add-customer" element={<AddCustomer />} />
-          <Route path="/debtors/add-debt" element={<AddDebt />} />
-          <Route path="/debtors/add-payment" element={<AddPayment />} />
-          <Route path="/debtors/clear" element={<ClearDebt />} />
+          <Route path="/debtors" element={<DebtorsList />} />
+          <Route path="/debtors/add" element={<AddCustomer />} />
+          <Route path="/debtors/:customerId" element={<DebtDetails />} />
+          <Route
+            path="/debtors/add-debt/:customerId"
+            element={<AddDebt />}
+          />
         </Route>
       </Route>
 

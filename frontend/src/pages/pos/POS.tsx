@@ -1,5 +1,3 @@
-import "../styles/table.css"
-
 export default function POS() {
   return (
     <>

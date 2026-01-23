@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
-import { api } from "../lib/api"
+import { api } from "../../lib/api"
 import { Link } from "react-router-dom"
-import { Button } from "../components/ui/button"
-import { Input } from "../components/ui/input"
+import { Button } from "../../components/ui/button"
+import { Input } from "../../components/ui/input"
 
 function createDate(dateString: string) {
   return new Date(dateString).toLocaleString("en-GB", {

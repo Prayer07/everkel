@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react"
-import { api } from "../lib/api"
-import { Input } from "../components/ui/input"
-import { Card } from "../components/ui/card"
+import { api } from "../../lib/api"
+import { Input } from "../../components/ui/input"
+import { Card } from "../../components/ui/card"
 
 type Transfer = {
   id: number
