@@ -45,6 +45,7 @@ export default function PosList() {
           </p>
         </div>
 
+        <div className="flex gap-3">
         <Input
           placeholder="Search products..."
           value={search}
@@ -55,6 +56,7 @@ export default function PosList() {
         <Button asChild className="bg-[#6f4e37] hover:bg-[#5c402d]">
           <a href="/pos/add">Add Product</a>
         </Button>
+      </div>
       </div>
 
       {/* Empty state */}
