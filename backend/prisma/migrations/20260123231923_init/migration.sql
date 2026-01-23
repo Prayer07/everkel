@@ -83,6 +83,7 @@ CREATE TABLE "StockTransfer" (
 -- CreateTable
 CREATE TABLE "Customer" (
     "id" SERIAL NOT NULL,
+    "userId" INTEGER NOT NULL,
     "fullName" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
     "address" TEXT NOT NULL,
@@ -97,9 +98,25 @@ CREATE TABLE "Debt" (
     "totalAmount" DOUBLE PRECISION NOT NULL,
     "amountPaid" DOUBLE PRECISION NOT NULL DEFAULT 0,
     "balance" DOUBLE PRECISION NOT NULL,
-    "dateCreated" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "isCleared" BOOLEAN NOT NULL DEFAULT false,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Debt_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "PosProduct" (
+    "id" SERIAL NOT NULL,
+    "userId" INTEGER NOT NULL,
+    "productName" TEXT NOT NULL,
+    "quantity" INTEGER NOT NULL,
+    "costPrice" DOUBLE PRECISION NOT NULL,
+    "sellingPrice" DOUBLE PRECISION NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "PosProduct_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -137,3 +154,6 @@ ALTER TABLE "StockTransfer" ADD CONSTRAINT "StockTransfer_toStoreId_fkey" FOREIG
 
 -- AddForeignKey
 ALTER TABLE "Debt" ADD CONSTRAINT "Debt_customerId_fkey" FOREIGN KEY ("customerId") REFERENCES "Customer"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "PosProduct" ADD CONSTRAINT "PosProduct_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -68,12 +68,16 @@ export const logout = async (req: Request, res: Response) => {
   const sessionId = req.cookies.session_id
 
   if (sessionId) {
-    await prisma.session.delete({ where: { id: sessionId } }).catch(() => {})
+    await prisma.session.deleteMany({
+      where: { id: sessionId },
+    })
   }
 
-  res.clearCookie("session_id").json({ message: "Logged out" })
+  res.clearCookie("session_id")
+  res.json({ message: "Logged out" })
 }
 
+// ME
 export const me = async (req: Request, res: Response) => {
   res.json({ user: req.user })
 }
